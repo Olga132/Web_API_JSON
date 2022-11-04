@@ -24,6 +24,15 @@ public class SolvatorImpl implements ISolvator {
             case "sec" -> result = String.valueOf(ChronoUnit.SECONDS.between(fromDate, toDate));
             case "min" -> result = String.valueOf(ChronoUnit.MINUTES.between(fromDate, toDate));
             case "hour" -> result = String.valueOf(ChronoUnit.HOURS.between(fromDate, toDate));
+            case "time" -> {
+                LocalDateTime tempDateTime = LocalDateTime.from(fromDate);
+                long hours = tempDateTime.until(toDate, ChronoUnit.HOURS);
+                tempDateTime = tempDateTime.plusHours(hours);
+                long minutes = tempDateTime.until(toDate, ChronoUnit.MINUTES);
+                tempDateTime = tempDateTime.plusMinutes(minutes);
+                long seconds = tempDateTime.until(toDate, ChronoUnit.SECONDS);
+                result = "hh:mm:ss - " + hours + ":" + minutes + ":" + seconds + ".";
+            }
             case "full" -> {
                 LocalDateTime tempDateTime = LocalDateTime.from(fromDate);
                 long years = tempDateTime.until(toDate, ChronoUnit.YEARS);
